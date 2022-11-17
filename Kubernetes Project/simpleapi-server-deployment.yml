@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simpleapi-server-deployment
+spec:
+  selector:
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: simpleapi-server
+          image: sushmr24/simpleblogapi
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: POSTGRES_USERNAME
+              value: postgres
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_DB
+              value: simple_blog_api
+            - name: POSTGRES_PASSWORD
+              value: postgres_password
+            - name: POSTGRES_PORT
+              value: "5432"
